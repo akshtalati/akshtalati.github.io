@@ -1,1 +1,0 @@
-# akshtalati.github.io

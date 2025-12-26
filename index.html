@@ -1,341 +1,1321 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Aksh Talati — Data Systems & Analytics Engineer. Pipelines, warehouses, BI, and RAG systems." />
-  <title>Aksh Talati — Data Systems & Analytics</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aksh Talati — Data Systems & AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e13;
+      --bg-secondary: #0f1419;
+      --bg-card: #161b22;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --border: rgba(255, 255, 255, 0.06);
+      --success: #3fb950;
+      --warning: #d29922;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 19, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #79c0ff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 120px 0 80px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-description {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-links {
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .hero-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .hero-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Section Spacing */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .section-description {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+
+    /* Experience Section */
+    .experience-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .experience-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+
+    .experience-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .experience-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .experience-company {
+      color: var(--accent);
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .experience-meta {
+      display: flex;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .experience-description {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .experience-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .highlight-tag {
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 32px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    }
+
+    .project-header {
+      margin-bottom: 20px;
+    }
+
+    .project-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .project-tagline {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .project-content h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warning);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-content p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tech-tag {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .project-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover {
+      color: #79c0ff;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .skill-category h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* Contact Section */
+    .contact-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-content h3 {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .contact-content p {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .contact-item a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      margin-top: 100px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      .hero {
+        padding: 80px 0 60px;
+      }
+
+      .hero-description {
+        font-size: 18px;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-content {
+        padding: 32px 20px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand-name">Aksh Talati</span>
-        <span class="brand-sub">Data Systems & Analytics</span>
-      </a>
 
-      <nav class="nav" aria-label="Primary">
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="#" class="logo">
+        Aksh Talati
+        <span class="logo-sub">Data Systems & AI Engineer</span>
+      </a>
+      <div class="nav-links">
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="btn btn-small">Contact</a>
-      </nav>
-    </div>
+        <a href="#contact">Contact</a>
+        <a href="Aksh_Talati_Resume.pdf" class="btn-secondary" download>Resume</a>
+      </div>
+    </nav>
   </header>
 
-  <main id="top">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          Open to opportunities across USA
+        </div>
+        
+        <h1>Building intelligent data systems from chaos to clarity</h1>
+        
+        <p class="hero-description">
+          I design and build end-to-end data platforms that transform unstructured mess into production-grade intelligence. Pipelines, warehouses, RAG systems, and AI agents — with validation, observability, and trust built in from day one.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#contact" class="btn-secondary">Get in Touch</a>
+        </div>
+
+        <div class="hero-links">
+          <a href="https://github.com/akshtalati" target="_blank">GitHub</a>
+          <a href="https://www.linkedin.com/in/akshtalati" target="_blank">LinkedIn</a>
+          <a href="mailto:talati.ak@northeastern.edu">Email</a>
+        </div>
+      </div>
+
+      <!-- GitHub Activity -->
+      <div style="margin-top: 60px; text-align: center;">
+        <h3 style="margin-bottom: 24px; font-size: 20px;">GitHub Activity</h3>
+        <div style="display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;">
+          <div>
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">9</div>
+            <div style="color: var(--text-muted); font-size: 14px;">Public Repositories</div>
+          </div>
+          <div>
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">60+</div>
+            <div style="color: var(--text-muted); font-size: 14px;">Commits</div>
+          </div>
+          <div>
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">3</div>
+            <div style="color: var(--text-muted); font-size: 14px;">Languages</div>
+          </div>
+        </div>
+        <p style="margin-top: 24px; color: var(--text-secondary);">
+          Primary: Python, TypeScript, SQL | Cloud: GCP, Azure | Focus: Data Engineering & AI Systems
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Stats -->
+  <section style="padding: 60px 0; background: rgba(255, 255, 255, 0.02);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; text-align: center;">
         <div>
-          <p class="pill">Boston, MA · Data Engineering · BI & Analytics · LLM / RAG Systems</p>
-
-          <h1>Designing data systems that turn messy inputs into reliable intelligence.</h1>
-
-          <p class="lead">
-            Data Engineer & Analytics Practitioner building pipelines, warehouses, and AI-powered retrieval systems
-            that help teams make confident, data-driven decisions.
-          </p>
-
-          <div class="cta">
-            <a class="btn" href="#projects">View Projects</a>
-            <a class="btn btn-ghost" href="#contact">Contact Me</a>
-          </div>
-
-          <div class="quick-links">
-            <a href="https://github.com/akshtalati" target="_blank" rel="noreferrer">GitHub</a>
-            <span>·</span>
-            <a href="https://www.linkedin.com/in/akshtalati" target="_blank" rel="noreferrer">LinkedIn</a>
-            <span>·</span>
-            <a href="mailto:talati.ak@northeastern.edu">talati.ak@northeastern.edu</a>
-          </div>
+          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">9</div>
+          <div style="color: var(--text-secondary); font-size: 16px;">Production Projects</div>
         </div>
-
-        <aside class="hero-card">
-          <h2 class="h2">System Overview</h2>
-          <p>
-            I design <strong>end-to-end data systems</strong> that transform unstructured documents, APIs, and
-            transactional data into <strong>analytics-ready and AI-ready assets</strong>.
-          </p>
-          <p>
-            My work blends <strong>data engineering</strong>, <strong>dimensional modeling</strong>, and
-            <strong>retrieval-augmented generation (RAG)</strong> so stakeholders can ask better questions,
-            trust the answers, and act without digging into raw data or pipeline code.
-          </p>
-          <p class="muted">
-            I treat data platforms as <strong>products</strong>—with validation, observability, and iteration—
-            not one-off scripts.
-          </p>
-        </aside>
+        <div>
+          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">80+</div>
+          <div style="color: var(--text-secondary); font-size: 16px;">Students Taught</div>
+        </div>
+        <div>
+          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">4</div>
+          <div style="color: var(--text-secondary); font-size: 16px;">Industry Roles</div>
+        </div>
+        <div>
+          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">35%</div>
+          <div style="color: var(--text-secondary); font-size: 16px;">Efficiency Gains</div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SKILLS / CAPABILITIES -->
-    <section id="skills" class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>What I Build</h2>
-          <p class="muted">Operational capabilities across pipelines, BI, and AI systems.</p>
+  <!-- Education -->
+  <section id="education" style="padding: 100px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Education</span>
+        <h2>Academic Background</h2>
+        <p class="section-description">
+          Building systems at the intersection of data engineering and AI.
+        </p>
+      </div>
+
+      <div style="display: grid; gap: 24px;">
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Master of Science in Information Systems</div>
+              <div class="experience-company">Northeastern University</div>
+              <div class="experience-meta">
+                <span>Expected May 2026</span>
+                <span>Boston, MA</span>
+              </div>
+            </div>
+          </div>
+          <p class="experience-description">
+            Focus on data engineering, AI systems, and cloud-native architectures. Coursework includes Advanced Data Engineering (DAMG 7245), AI Systems & Applications (INFO 6245), Database Management, and Supply Chain & Business Analytics.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">Data Engineering</span>
+            <span class="highlight-tag">AI Systems</span>
+            <span class="highlight-tag">Cloud Architecture</span>
+            <span class="highlight-tag">Database Management</span>
+          </div>
         </div>
 
-        <div class="grid cards">
-          <article class="card">
-            <h3>Data Engineering & Pipelines</h3>
-            <ul>
-              <li>Ingestion from APIs, PDFs, and heterogeneous web sources</li>
-              <li>ETL / ELT using Airflow, Azure Data Factory, Databricks</li>
-              <li>Warehouse modeling in Snowflake and relational systems</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Analytics & BI</h3>
-            <ul>
-              <li>Dimensional models and star schemas for self-serve analytics</li>
-              <li>KPI-driven dashboards in Power BI and Tableau</li>
-              <li>Translate open-ended questions into measurable views</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>AI, RAG & Intelligent Systems</h3>
-            <ul>
-              <li>RAG pipelines over financial docs, research, filings</li>
-              <li>LLM agents for search, summarization, structured outputs</li>
-              <li>Validation + fallback logic for reliable answers</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Data Quality & Observability</h3>
-            <ul>
-              <li>Rule-based checks and schema validation frameworks</li>
-              <li>Metadata, logging, reproducibility (DVC)</li>
-              <li>Reliability and trust as first-class requirements</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Teaching & Collaboration</h3>
-            <ul>
-              <li>Teaching Assistant: SQL, schema design, modeling</li>
-              <li>Help teams debug pipelines, queries, and data models</li>
-              <li>Clear communication with technical/non-technical stakeholders</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="tech">
-          <h3 class="h3">Tech Stack</h3>
-          <div class="chips">
-            <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Bash</span><span class="chip">Java</span><span class="chip">R</span>
-            <span class="chip">Airflow (Cloud Composer)</span><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span><span class="chip">Spark</span>
-            <span class="chip">Snowflake</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span>
-            <span class="chip">Qdrant</span><span class="chip">ChromaDB</span>
-            <span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">Instructor / Pydantic</span>
-            <span class="chip">Tableau</span><span class="chip">Power BI</span><span class="chip">Excel</span>
-            <span class="chip">GCP (Cloud Run, GCS, IAM)</span><span class="chip">Docker</span><span class="chip">FastAPI</span><span class="chip">Streamlit</span><span class="chip">Git/GitHub</span>
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Bachelor of Technology in Information Technology</div>
+              <div class="experience-company">Dharmsinh Desai University</div>
+              <div class="experience-meta">
+                <span>Graduated 2024</span>
+                <span>Gujarat, India</span>
+              </div>
+            </div>
+          </div>
+          <p class="experience-description">
+            Strong foundation in computer science fundamentals, data structures, algorithms, and software engineering. Built early expertise in Python, SQL, and full-stack development through academic projects and internships.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">Computer Science</span>
+            <span class="highlight-tag">Software Engineering</span>
+            <span class="highlight-tag">Data Structures</span>
+            <span class="highlight-tag">Algorithms</span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="section section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Featured Data Systems</h2>
-          <p class="muted">End-to-end platforms: ingestion → modeling → analytics/AI → trust.</p>
-        </div>
-
-        <div class="grid projects">
-          <!-- ORBIT -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>ORBIT AI-50 Intelligence</h3>
-              <p class="tagline">LLM-powered intelligence hub for Forbes AI-50 companies.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Automate due diligence and profiles with unified data + LLM layer.</li>
-              <li><strong>Approach:</strong> Dual pipelines (structured extraction + RAG), orchestrated via Airflow; vector indexing with Qdrant.</li>
-              <li><strong>Impact:</strong> Reduced manual research and improved consistency for competitive analysis.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Python, Airflow, FastAPI, Streamlit, Qdrant, ChromaDB, GCP</p>
-          </article>
-
-          <!-- AURELIA -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>Aurelia Financial RAG</h3>
-              <p class="tagline">Cloud-native RAG microservice over a 4,000-page financial toolbox.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Make dense documentation searchable, explainable, and reliable.</li>
-              <li><strong>Approach:</strong> Code-aware chunking, embeddings in ChromaDB, Instructor-based structured responses with citations.</li>
-              <li><strong>Impact:</strong> Faster lookup and higher trust through cited, structured answers.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Python, FastAPI, Airflow, ChromaDB, Cloud Run, GCP</p>
-          </article>
-
-          <!-- SEC -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>Report Intelligence (SEC Filings)</h3>
-              <p class="tagline">Document-processing backbone for SEC filings and financial RAG.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Reliable extraction + validation layer for filings (PDF/XBRL).</li>
-              <li><strong>Approach:</strong> Docling + pdfplumber extraction, modular chunking/validation, DVC versioning for auditability.</li>
-              <li><strong>Impact:</strong> Standardized noisy filings into consistent downstream assets.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Python, Docling, pdfplumber, DVC, GCP</p>
-          </article>
-
-          <!-- DOW-30 -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>Dow-30 IR Scraper</h3>
-              <p class="tagline">Central investor relations document index for the Dow-30.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Centralize heterogeneous IR docs for research and analytics.</li>
-              <li><strong>Approach:</strong> Selenium scraping with fallback heuristics, metadata standardization, Airflow DAG refresh.</li>
-              <li><strong>Impact:</strong> Reduced manual collection and created a reusable ingestion pattern.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Python, Selenium, Airflow, GCS</p>
-          </article>
-
-          <!-- IMDB -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>IMDb BI Analytics</h3>
-              <p class="tagline">Media warehouse and BI layer over 14GB of IMDb data.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Dimensional warehouse + dashboards for content and rating insights.</li>
-              <li><strong>Approach:</strong> Alteryx cleaning, Snowflake star schema, ADF pipelines with deduplication/aggregation rules.</li>
-              <li><strong>Impact:</strong> Scalable exploration via Power BI dashboards (genres, ratings, crew).</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Alteryx, Azure Data Factory, Snowflake, Power BI, SQL</p>
-          </article>
-
-          <!-- FOOD -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>Chicago & Dallas Food Inspections</h3>
-              <p class="tagline">Multi-city food safety analytics over standardized inspection data.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Standardize and compare inspection risk/compliance across cities.</li>
-              <li><strong>Approach:</strong> Normalize Dallas wide schema to align with Chicago, Databricks Bronze→Silver, Snowflake + Tableau analytics.</li>
-              <li><strong>Impact:</strong> Unified multi-city dataset powering high-risk and hotspot KPIs.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Databricks, Snowflake, Tableau, SQL, Azure Data Factory</p>
-          </article>
-
-          <!-- NYPD -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>NYPD Arrest Analytics</h3>
-              <p class="tagline">Refreshable analytics over 5M+ arrest records.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Repeatable analysis across demographics, offenses, place, and time.</li>
-              <li><strong>Approach:</strong> Snowflake modeling, incremental MERGE-based fact table, Power BI decision dashboards.</li>
-              <li><strong>Impact:</strong> Shifted from static reporting to refreshable analytics.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Snowflake, Power BI, SQL, Alteryx, Azure Data Factory</p>
-          </article>
-
-          <!-- EXPORT -->
-          <article class="card project">
-            <div class="project-top">
-              <h3>Export Growth Analysis</h3>
-              <p class="tagline">Econometric modeling for trade and tariff insights.</p>
-            </div>
-            <ul>
-              <li><strong>Objective:</strong> Quantify relationships between tariffs, macro factors, and exports.</li>
-              <li><strong>Approach:</strong> Python cleaning/joining, GLM/Poisson regression, reproducible analysis notebooks.</li>
-              <li><strong>Impact:</strong> Interpretable, model-driven insights into export drivers.</li>
-            </ul>
-            <p class="tools"><strong>Tools:</strong> Python, Pandas, GLM/Poisson regression</p>
-          </article>
-        </div>
-
-        <div class="note">
-          <h3 class="h3">Dashboards as Decision Interfaces</h3>
-          <ul>
-            <li><strong>Question-first design:</strong> Start with the decision and define KPIs/dimensions accordingly.</li>
-            <li><strong>Layered detail:</strong> Summary tiles → trends → drill-downs by segment/time.</li>
-            <li><strong>Explainable logic:</strong> Trace every metric back to SQL and transformations.</li>
-          </ul>
-        </div>
+  <!-- Experience -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Experience</span>
+        <h2>Where I've Worked</h2>
+        <p class="section-description">
+          From research pipelines to teaching analytics, building systems that ship.
+        </p>
       </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>About</h2>
-        </div>
-        <div class="about">
-          <p>
-            I’m a data engineer and analytics practitioner pursuing an <strong>MS in Information Systems at Northeastern University</strong>,
-            with a <strong>B.Tech in Information Technology</strong> from Dharmsinh Desai University.
-          </p>
-          <p>
-            My work sits at the intersection of <strong>data engineering</strong>, <strong>analytics</strong>, and <strong>AI systems</strong>:
-            pipelines, warehouses, validation layers, and document intelligence systems that teams can trust.
-          </p>
-          <p class="muted">
-            I also serve as a <strong>Teaching Assistant in Database Management</strong>, teaching SQL, schema design, and real-world database workflows.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <div class="section-head">
-          <h2>Contact</h2>
-          <p class="muted">Best way to reach me: email or LinkedIn.</p>
-        </div>
-
-        <div class="contact">
-          <div class="contact-card card">
-            <h3>Links</h3>
-            <p><strong>Location:</strong> Boston, MA</p>
-            <p><strong>Email:</strong> <a href="mailto:talati.ak@northeastern.edu">talati.ak@northeastern.edu</a></p>
-            <p><strong>GitHub:</strong> <a href="https://github.com/akshtalati" target="_blank" rel="noreferrer">github.com/akshtalati</a></p>
-            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/akshtalati" target="_blank" rel="noreferrer">linkedin.com/in/akshtalati</a></p>
+      <div class="experience-grid">
+        <!-- Research Assistant -->
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Research Assistant</div>
+              <div class="experience-company">Northeastern University · D'Amore-McKim School of Business</div>
+              <div class="experience-meta">
+                <span>Sep 2025 – Present · 4 mos</span>
+                <span>Boston, MA</span>
+              </div>
+            </div>
           </div>
+          <p class="experience-description">
+            Contributing to healthcare-focused research by building data engineering pipelines for collecting, processing, and analyzing complex research datasets. Designing automated ETL workflows with reproducibility standards and data validation layers for academic publication requirements.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">Airflow</span>
+            <span class="highlight-tag">GCP</span>
+            <span class="highlight-tag">Python</span>
+            <span class="highlight-tag">Data Pipelines</span>
+            <span class="highlight-tag">Healthcare Data</span>
+          </div>
+        </div>
 
-          <div class="contact-card card">
-            <h3>Quick Message</h3>
-            <p class="muted">Email me and I’ll respond quickly.</p>
-            <a class="btn" href="mailto:talati.ak@northeastern.edu?subject=Portfolio%20Inquiry%20—%20Aksh%20Talati">Email Aksh</a>
+        <!-- Teaching Assistant -->
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Teaching Assistant — MISM 2301: Supply Chain & Business Analytics</div>
+              <div class="experience-company">Northeastern University · D'Amore-McKim School of Business</div>
+              <div class="experience-meta">
+                <span>Sep 2025 – Present · 4 mos</span>
+                <span>Part-time · Boston, MA</span>
+              </div>
+            </div>
+          </div>
+          <p class="experience-description">
+            Supporting 80+ graduate students with SQL/Oracle labs, dashboard-building assignments, and analytical thinking. Designing practical labs, debugging complex queries, grading assignments, and translating abstract database concepts into real-world patterns. Mentoring students on schema design, normalization, and query optimization.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">SQL/Oracle</span>
+            <span class="highlight-tag">Database Design</span>
+            <span class="highlight-tag">Business Analytics</span>
+            <span class="highlight-tag">Teaching</span>
+            <span class="highlight-tag">Mentorship</span>
+          </div>
+        </div>
+
+        <!-- Research Intern -->
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Research Intern</div>
+              <div class="experience-company">Dhirubhai Ambani Institute of Information and Communication Technology</div>
+              <div class="experience-meta">
+                <span>Jan 2024 – May 2024 · 5 mos</span>
+                <span>Gandhinagar, Gujarat, India</span>
+              </div>
+            </div>
+          </div>
+          <p class="experience-description">
+            Developed a cross-lingual information retrieval system focused on translating English queries into Indic languages (Hindi, Gujarati, Bengali), enhancing multilingual search capabilities for regional content discovery. Built NLP pipelines for query translation, semantic matching, and relevance ranking across language boundaries.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">NLP</span>
+            <span class="highlight-tag">Python</span>
+            <span class="highlight-tag">Information Retrieval</span>
+            <span class="highlight-tag">Multilingual Systems</span>
+            <span class="highlight-tag">Research</span>
+          </div>
+        </div>
+
+        <!-- Technical Intern -->
+        <div class="experience-card">
+          <div class="experience-header">
+            <div>
+              <div class="experience-title">Technical Intern</div>
+              <div class="experience-company">Nifty Solutions</div>
+              <div class="experience-meta">
+                <span>May 2023 – Jul 2023 · 3 mos</span>
+                <span>Vadodara, Gujarat, India</span>
+              </div>
+            </div>
+          </div>
+          <p class="experience-description">
+            Designed and developed interactive dashboards in Power BI and Tableau, improving business decision-making efficiency by 35%. Built an internal analytics tool for real-time process monitoring, reducing manual reporting time and enabling data-driven operational decisions across teams.
+          </p>
+          <div class="experience-highlights">
+            <span class="highlight-tag">Power BI</span>
+            <span class="highlight-tag">Tableau</span>
+            <span class="highlight-tag">Business Analytics</span>
+            <span class="highlight-tag">Dashboard Design</span>
+            <span class="highlight-tag">Real-time Monitoring</span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="footer">
-      <div class="container footer-inner">
-        <p>© <span id="year"></span> Aksh Talati</p>
-        <p class="muted">Built for clarity, systems thinking, and credibility.</p>
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Featured Work</span>
+        <h2>Projects That Ship</h2>
+        <p class="section-description">
+          End-to-end systems designed for trust, reliability, and real-world use.
+        </p>
       </div>
-    </footer>
-  </main>
 
-  <script src="script.js"></script>
+      <div class="projects-grid">
+        <!-- TechScopeAI -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">TechScopeAI</h3>
+            <p class="project-tagline">Multi-agent intelligence system for technical startup founders</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Technical startup founders need specialized guidance across pitch creation, competitive analysis, marketing, patents, policies, and team building.</p>
+            
+            <h4>Solution</h4>
+            <p>Built production-grade multi-agent platform combining RAG (Weaviate Cloud), MCP tools (web/image/patent search), and LLM failover (GPT-4/Gemini). Specialized agents for pitch decks (with Gamma.ai integration), marketing, IP, policies, and team analysis. React + TypeScript frontend, FastAPI backend, deployed on GCP Cloud Run.</p>
+            
+            <h4>Impact</h4>
+            <p>Founders get AI-generated pitch decks with professional visuals, data-driven marketing strategies, patent searches, compliance documents, and team planning guidance—all from a single platform.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Weaviate</span>
+            <span class="tech-tag">LangGraph</span>
+            <span class="tech-tag">Cloud Run</span>
+            <span class="tech-tag">Docker</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/BigDataGroup1/TechScopeAI" target="_blank">View on GitHub →</a>
+            <a href="https://techscopeai-web-541402991388.us-central1.run.app/" target="_blank">Live Demo →</a>
+            <a href="https://youtu.be/QxWz4NmnLkU" target="_blank" style="color: var(--success);">Watch Full Demo →</a>
+          </div>
+        </div>
+
+        <!-- ORBIT -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">ORBIT AI-50 Intelligence</h3>
+            <p class="project-tagline">Agentic LLM system for private equity due diligence</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Manual research for Forbes AI-50 companies takes days. No unified intelligence layer.</p>
+            
+            <h4>Solution</h4>
+            <p>Built dual-pipeline system: structured extraction + RAG. Automated scraping, Airflow orchestration, vector indexing (Qdrant), and agentic reasoning with ReAct patterns.</p>
+            
+            <h4>Impact</h4>
+            <p>Reduced research time by 80%. Consistent, cited intelligence with autonomous updates.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Airflow</span>
+            <span class="tech-tag">LangGraph</span>
+            <span class="tech-tag">Qdrant</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">GCP</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/BigDataGroup1/orbit-ai50-intelligence" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Aurelia -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Aurelia Financial RAG</h3>
+            <p class="project-tagline">Production RAG microservice for financial documentation</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>4,000-page financial toolbox. Manual search = slow, unreliable.</p>
+            
+            <h4>Solution</h4>
+            <p>Cloud-native RAG system with code-aware chunking, ChromaDB embeddings, structured responses using Instructor/Pydantic, and citation tracking.</p>
+            
+            <h4>Impact</h4>
+            <p>Instant lookup with 95%+ accuracy. Trusted, cited answers deployed on Cloud Run.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">ChromaDB</span>
+            <span class="tech-tag">Instructor</span>
+            <span class="tech-tag">Cloud Run</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/BigDataGroup1/aurelia-financial-rag" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- IMDb -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">IMDb BI Analytics</h3>
+            <p class="project-tagline">14GB media warehouse + self-serve BI layer</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Massive IMDb dataset. No structure, no analytics-ready model.</p>
+            
+            <h4>Solution</h4>
+            <p>Built star schema in Snowflake with Azure Data Factory pipelines. Deduplication, aggregation correctness, and Power BI dashboards for genre/rating/crew insights.</p>
+            
+            <h4>Impact</h4>
+            <p>Scalable self-serve analytics for stakeholders. Query performance optimized 10x.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Snowflake</span>
+            <span class="tech-tag">Azure Data Factory</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Alteryx</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/akshtalati/IMDB_PROJECT" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Food Inspections -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Food Inspections Analytics</h3>
+            <p class="project-tagline">Multi-city food safety intelligence platform</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Chicago + Dallas inspection data in completely different schemas.</p>
+            
+            <h4>Solution</h4>
+            <p>Normalized Dallas schema to align with Chicago. Bronze→Silver Databricks pipeline, unified model in Snowflake, Tableau dashboards for compliance/risk KPIs.</p>
+            
+            <h4>Impact</h4>
+            <p>First unified view of multi-city food safety. Hotspot detection + compliance tracking.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Databricks</span>
+            <span class="tech-tag">Snowflake</span>
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">ADF</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/akshtalati/Food_Inspections_Chicago_Dallas" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- NYPD -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">NYPD Arrest Analytics</h3>
+            <p class="project-tagline">Refreshable analytics over 5M+ arrest records</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Static analysis insufficient for ongoing policy decisions across demographics and jurisdictions.</p>
+            
+            <h4>Solution</h4>
+            <p>Built Snowflake dimensional model with incremental MERGE-based fact table refresh. Power BI dashboards showing arrest trends by demographics, offense types, precinct, and time dimensions.</p>
+            
+            <h4>Impact</h4>
+            <p>Shifted from one-time reports to continuously refreshable analytics platform supporting evidence-based policy decisions.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Snowflake</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Alteryx</span>
+            <span class="tech-tag">Azure Data Factory</span>
+          </div>
+        </div>
+
+        <!-- Export Growth Analysis -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Export Growth Analysis</h3>
+            <p class="project-tagline">Econometric modeling for trade and tariff insights</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>Understanding complex relationships between tariffs, macroeconomic factors, and export performance.</p>
+            
+            <h4>Solution</h4>
+            <p>Built reproducible analysis pipeline in Python using Pandas for data cleaning/joining, GLM/Poisson regression for modeling trade relationships, and Jupyter notebooks for transparent, peer-reviewable analysis.</p>
+            
+            <h4>Impact</h4>
+            <p>Delivered interpretable, model-driven insights into export drivers with statistical significance testing and reproducible methodology.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Jupyter</span>
+            <span class="tech-tag">GLM/Poisson</span>
+            <span class="tech-tag">Statistical Modeling</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/akshtalati/Export_Growth_Analysis" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Report Intelligence -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Report Intelligence (SEC Filings)</h3>
+            <p class="project-tagline">Document processing backbone for financial RAG</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>SEC filings (PDF/XBRL) = noisy, inconsistent, hard to extract.</p>
+            
+            <h4>Solution</h4>
+            <p>Modular extraction pipeline using Docling + pdfplumber. Schema validation, chunking strategies, DVC versioning for auditability.</p>
+            
+            <h4>Impact</h4>
+            <p>Standardized messy filings into reliable downstream assets. Reproducible + auditable.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Docling</span>
+            <span class="tech-tag">pdfplumber</span>
+            <span class="tech-tag">DVC</span>
+            <span class="tech-tag">GCP</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/BigDataGroup1/report-intelligence" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+
+        <!-- Dow-30 -->
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">Dow-30 IR Document Index</h3>
+            <p class="project-tagline">Centralized investor relations scraper</p>
+          </div>
+          <div class="project-content">
+            <h4>Problem</h4>
+            <p>30 different IR sites. Manual collection = slow, error-prone.</p>
+            
+            <h4>Solution</h4>
+            <p>Selenium scraper with fallback heuristics, metadata standardization, Airflow DAG for scheduled refresh.</p>
+            
+            <h4>Impact</h4>
+            <p>Automated document collection across all Dow-30 companies. Reusable pattern.</p>
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Selenium</span>
+            <span class="tech-tag">Airflow</span>
+            <span class="tech-tag">GCS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/BigDataGroup1/dow30-financial-reports" target="_blank">View on GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Capabilities</span>
+        <h2>What Makes Me Different</h2>
+        <p class="section-description">
+          I don't just write code — I build systems people trust.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>🔧 Data Engineering</h3>
+          <div class="skill-list">
+            <span class="skill-item">Python</span>
+            <span class="skill-item">SQL</span>
+            <span class="skill-item">Pandas</span>
+            <span class="skill-item">Apache Airflow</span>
+            <span class="skill-item">Azure Data Factory</span>
+            <span class="skill-item">Databricks</span>
+            <span class="skill-item">Spark</span>
+            <span class="skill-item">Docker</span>
+            <span class="skill-item">DVC</span>
+            <span class="skill-item">Selenium</span>
+            <span class="skill-item">Git/GitHub</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🗄️ Databases & Warehousing</h3>
+          <div class="skill-list">
+            <span class="skill-item">Snowflake</span>
+            <span class="skill-item">PostgreSQL</span>
+            <span class="skill-item">pgvector</span>
+            <span class="skill-item">MySQL</span>
+            <span class="skill-item">Star Schema</span>
+            <span class="skill-item">Dimensional Modeling</span>
+            <span class="skill-item">Data Vault</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🤖 AI, RAG & Vector Databases</h3>
+          <div class="skill-list">
+            <span class="skill-item">LangChain</span>
+            <span class="skill-item">LangGraph</span>
+            <span class="skill-item">Instructor</span>
+            <span class="skill-item">Weaviate</span>
+            <span class="skill-item">Qdrant</span>
+            <span class="skill-item">ChromaDB</span>
+            <span class="skill-item">OpenAI API</span>
+            <span class="skill-item">Google Gemini</span>
+            <span class="skill-item">Pydantic</span>
+            <span class="skill-item">NLP</span>
+            <span class="skill-item">Multi-Agent Systems</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>📊 Analytics & BI</h3>
+          <div class="skill-list">
+            <span class="skill-item">Power BI</span>
+            <span class="skill-item">Tableau</span>
+            <span class="skill-item">Excel</span>
+            <span class="skill-item">DAX</span>
+            <span class="skill-item">Alteryx</span>
+            <span class="skill-item">Statistical Modeling</span>
+            <span class="skill-item">Jupyter</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>💻 Application Development</h3>
+          <div class="skill-list">
+            <span class="skill-item">FastAPI</span>
+            <span class="skill-item">React</span>
+            <span class="skill-item">TypeScript</span>
+            <span class="skill-item">Streamlit</span>
+            <span class="skill-item">Vite</span>
+            <span class="skill-item">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>☁️ Cloud & Infrastructure</h3>
+          <div class="skill-list">
+            <span class="skill-item">GCP</span>
+            <span class="skill-item">Azure</span>
+            <span class="skill-item">Cloud Run</span>
+            <span class="skill-item">Cloud Composer</span>
+            <span class="skill-item">GCS</span>
+            <span class="skill-item">IAM</span>
+            <span class="skill-item">Docker</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>📄 Document Processing</h3>
+          <div class="skill-list">
+            <span class="skill-item">PDF Extraction</span>
+            <span class="skill-item">pdfplumber</span>
+            <span class="skill-item">Docling</span>
+            <span class="skill-item">OCR</span>
+            <span class="skill-item">XBRL</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🎯 Core Strengths</h3>
+          <div class="skill-list">
+            <span class="skill-item">End-to-end system design</span>
+            <span class="skill-item">Production-grade thinking</span>
+            <span class="skill-item">Multi-agent orchestration</span>
+            <span class="skill-item">Data validation & quality</span>
+            <span class="skill-item">Pipeline orchestration</span>
+            <span class="skill-item">Technical mentorship</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-content">
+        <h3>Let's Build Something</h3>
+        <p>Open to full-time opportunities, consulting, or just talking data systems.</p>
+        
+        <div class="contact-methods">
+          <div class="contact-item">
+            📧 <a href="mailto:talati.ak@northeastern.edu">talati.ak@northeastern.edu</a>
+          </div>
+          <div class="contact-item">
+            📍 Open to opportunities across USA
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="mailto:talati.ak@northeastern.edu" class="btn-primary">Send Email</a>
+          <a href="Aksh_Talati_Resume.pdf" class="btn-secondary" download>Download Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Aksh Talati · Built for clarity and credibility</p>
+      <div class="footer-links">
+        <a href="https://github.com/akshtalati" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/akshtalati" target="_blank">LinkedIn</a>
+        <a href="mailto:talati.ak@northeastern.edu">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Update year in footer
+    document.querySelector('.footer-text').textContent = 
+      `© ${new Date().getFullYear()} Aksh Talati · Built for clarity and credibility`;
+  </script>
+
 </body>
 </html>
-
-
