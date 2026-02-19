@@ -301,24 +301,36 @@ footer{border-top:1px solid var(--border);padding:36px 0;margin-top:80px;}
       <div class="building-card fade-in">
         <div class="wip-badge"><span class="wip-dot"></span> In Progress</div>
         <div class="bc-title">MedAssist.AI</div>
-        <div class="bc-sub">Medical information aggregation & intelligence platform</div>
-        <div class="bc-desc">Unifying six medical data sources — including PubMed and WHO — into a single intelligent platform. Building automated ingestion pipelines, semantic search, and a RAG layer so clinicians and researchers can query across sources without hunting through siloed databases.</div>
+        <div class="bc-sub">Symptom → rare disease lookup with medical literature context</div>
+        <div class="bc-desc">A doctor's assistant: enter symptoms, get candidate rare diseases with Orpha codes plus relevant literature, drug labels, and clinical guidelines to validate against. Built on 9 free public sources — PubMed, PMC, OpenFDA, Orphanet, RxNorm, WHO, NCBI Bookshelf, and OpenStax — with config-driven fetchers, checkpointed pipelines, and a symptom-to-disease inverted index. Optionally layers in RAG over the ingested text for semantic queries like "fever and vomiting differential", with Snowflake for warehousing and vector storage at scale.</div>
         <div class="bc-tags">
           <span class="bc-tag">Python</span>
-          <span class="bc-tag">PubMed API</span>
-          <span class="bc-tag">WHO Data</span>
+          <span class="bc-tag">NCBI / PubMed APIs</span>
+          <span class="bc-tag">OpenFDA</span>
+          <span class="bc-tag">Orphanet</span>
+          <span class="bc-tag">ChromaDB</span>
           <span class="bc-tag">RAG</span>
-          <span class="bc-tag">Vector DB</span>
-          <span class="bc-tag">FastAPI</span>
+          <span class="bc-tag">Snowflake</span>
+          <span class="bc-tag">sentence-transformers</span>
         </div>
       </div>
       <div class="building-card fade-in">
         <div class="wip-badge"><span class="wip-dot"></span> In Progress</div>
         <div class="bc-title">Project Polaris</div>
-        <div class="bc-sub">Coming soon — details dropping when it ships</div>
-        <div class="bc-desc">A new data systems project currently in active development. Details intentionally kept under wraps until it's ready to share. Watch this space.</div>
+        <div class="bc-sub">End-to-end MLOps platform for real-time sentiment analysis</div>
+        <div class="bc-desc">Building a full MLOps lifecycle from raw data to deployed, monitored services. Trains and compares Logistic Regression, Random Forest, and XGBoost on Twitter Sentiment140 with MLflow experiment tracking. The best model is served via FastAPI, deployable on Kubernetes or AWS Lambda. Kafka handles real-time tweet streaming, Prometheus and Grafana cover observability, and GitHub Actions runs CI/CD with automated testing and linting.</div>
         <div class="bc-tags">
-          <span class="bc-tag">TBD</span>
+          <span class="bc-tag">Python</span>
+          <span class="bc-tag">MLflow</span>
+          <span class="bc-tag">FastAPI</span>
+          <span class="bc-tag">Kubernetes</span>
+          <span class="bc-tag">AWS Lambda</span>
+          <span class="bc-tag">Kafka</span>
+          <span class="bc-tag">Prometheus</span>
+          <span class="bc-tag">Grafana</span>
+          <span class="bc-tag">XGBoost</span>
+          <span class="bc-tag">GitHub Actions</span>
+          <span class="bc-tag">Docker</span>
         </div>
       </div>
     </div>
