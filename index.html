@@ -1,1321 +1,799 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aksh Talati — Data Systems & AI Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-primary: #0a0e13;
-      --bg-secondary: #0f1419;
-      --bg-card: #161b22;
-      --text-primary: #e6edf3;
-      --text-secondary: #8b949e;
-      --text-muted: #6e7681;
-      --accent: #58a6ff;
-      --accent-glow: rgba(88, 166, 255, 0.15);
-      --border: rgba(255, 255, 255, 0.06);
-      --success: #3fb950;
-      --warning: #d29922;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 14, 19, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 32px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-primary);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .logo-sub {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--text-primary);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg-primary);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-primary:hover {
-      background: #79c0ff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px var(--accent-glow);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-primary);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      background: var(--accent-glow);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 120px 0 80px;
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -200px;
-      right: -100px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 800px;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 8px 16px;
-      border-radius: 24px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--success);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    h1 {
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--text-primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-description {
-      font-size: 20px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 32px;
-      max-width: 700px;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-links {
-      margin-top: 32px;
-      display: flex;
-      gap: 24px;
-    }
-
-    .hero-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .hero-links a:hover {
-      color: var(--accent);
-    }
-
-    /* Section Spacing */
-    section {
-      padding: 100px 0;
-    }
-
-    .section-header {
-      margin-bottom: 60px;
-    }
-
-    .section-tag {
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    h2 {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .section-description {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 700px;
-    }
-
-    /* Experience Section */
-    .experience-grid {
-      display: grid;
-      gap: 24px;
-    }
-
-    .experience-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s;
-    }
-
-    .experience-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .experience-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 16px;
-    }
-
-    .experience-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .experience-company {
-      color: var(--accent);
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .experience-meta {
-      display: flex;
-      gap: 16px;
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .experience-description {
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-
-    .experience-highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .highlight-tag {
-      background: rgba(88, 166, 255, 0.1);
-      color: var(--accent);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    /* Projects Section */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 32px;
-    }
-
-    .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-card:hover::before {
-      opacity: 1;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-    }
-
-    .project-header {
-      margin-bottom: 20px;
-    }
-
-    .project-title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-primary);
-    }
-
-    .project-tagline {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .project-content h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--warning);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .project-content p {
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .tech-tag {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-secondary);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .project-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .project-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .project-link:hover {
-      color: #79c0ff;
-    }
-
-    /* Skills Section */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .skill-category {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .skill-category h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text-primary);
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-item {
-      background: rgba(255, 255, 255, 0.03);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-
-    .skill-item:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-glow);
-    }
-
-    /* Contact Section */
-    .contact-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contact-content h3 {
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-
-    .contact-content p {
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-    }
-
-    .contact-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      color: var(--text-secondary);
-      font-size: 16px;
-    }
-
-    .contact-item a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .contact-item a:hover {
-      text-decoration: underline;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      margin-top: 100px;
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-text {
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 20px;
-      }
-
-      nav {
-        padding: 16px 20px;
-      }
-
-      .nav-links {
-        gap: 20px;
-      }
-
-      h1 {
-        font-size: 40px;
-      }
-
-      h2 {
-        font-size: 32px;
-      }
-
-      .hero {
-        padding: 80px 0 60px;
-      }
-
-      .hero-description {
-        font-size: 18px;
-      }
-
-      section {
-        padding: 60px 0;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-content {
-        padding: 32px 20px;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aksh Talati — Data & AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b10;
+  --bg2: #0c1017;
+  --bg3: #111720;
+  --card: #13191f;
+  --card2: #161d26;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf3;
+  --text2: #8b949e;
+  --text3: #5a6473;
+  --blue: #4f9eff;
+  --blue-dim: rgba(79,158,255,0.12);
+  --blue-glow: rgba(79,158,255,0.25);
+  --green: #3fb950;
+  --green-dim: rgba(63,185,80,0.12);
+  --amber: #e3b341;
+  --amber-dim: rgba(227,179,65,0.1);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:90px;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+
+/* Scroll progress */
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));z-index:999;width:0%;transition:width 0.1s;}
+
+/* NAV */
+nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(12,16,23,0.85);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:50px;padding:10px 24px;display:flex;align-items:center;gap:32px;transition:all 0.3s;}
+nav.scrolled{background:rgba(8,11,16,0.95);box-shadow:0 8px 40px rgba(0,0,0,0.5);}
+.nav-logo{font-size:14px;font-weight:700;color:var(--text);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:color 0.2s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--text);}
+.nav-cta{background:var(--blue);color:#080b10;padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.nav-cta:hover{background:#79c0ff;transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;}
+.hero-blob1{position:absolute;top:-10%;right:-5%;width:700px;height:700px;background:radial-gradient(ellipse,rgba(79,158,255,0.07),transparent 65%);border-radius:50%;}
+.hero-blob2{position:absolute;bottom:-20%;left:-10%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(167,139,250,0.05),transparent 65%);border-radius:50%;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 0%,black 40%,transparent 100%);}
+.container{max-width:1160px;margin:0 auto;padding:0 32px;position:relative;}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.hero-left{}
+.status{display:inline-flex;align-items:center;gap:8px;background:var(--green-dim);border:1px solid rgba(63,185,80,0.2);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--green);margin-bottom:28px;font-weight:500;}
+.dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 2s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--green);}50%{opacity:0.4;box-shadow:none;}}
+h1{font-size:52px;font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px;}
+.gradient-text{background:linear-gradient(135deg,var(--text) 40%,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;margin-bottom:36px;max-width:520px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+.btn{padding:11px 22px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-fill{background:var(--blue);color:#080b10;}
+.btn-fill:hover{background:#79c0ff;transform:translateY(-2px);box-shadow:0 8px 28px var(--blue-glow);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);}
+.btn-outline:hover{border-color:var(--blue);background:var(--blue-dim);transform:translateY(-2px);}
+.social-row{display:flex;gap:16px;align-items:center;}
+.social-link{display:flex;align-items:center;gap:7px;color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:color 0.2s;padding:6px 12px;border-radius:8px;border:1px solid transparent;}
+.social-link:hover{color:var(--blue);border-color:var(--border);background:var(--card);}
+.social-link svg{width:16px;height:16px;fill:currentColor;}
+
+/* Hero right — stats */
+.hero-right{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all 0.3s;}
+.stat-card:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+.stat-num{font-size:38px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;}
+.stat-num.blue{color:var(--blue);}
+.stat-num.green{color:var(--green);}
+.stat-num.amber{color:var(--amber);}
+.stat-num.purple{color:var(--purple);}
+.stat-label{font-size:13px;color:var(--text3);}
+.stat-card.wide{grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.stat-card.wide .stack{display:flex;gap:8px;flex-wrap:wrap;}
+.stack-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:5px 11px;border-radius:6px;font-size:12px;color:var(--text2);}
+
+/* SECTION BASE */
+section{padding:100px 0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:block;}
+h2{font-size:38px;font-weight:800;letter-spacing:-1px;margin-bottom:12px;}
+.section-desc{font-size:17px;color:var(--text2);max-width:600px;margin-bottom:56px;}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.fade-in.visible{opacity:1;transform:none;}
+
+/* CURRENTLY BUILDING */
+#building{padding-top:0;}
+.building-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;}
+.building-card{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden;}
+.building-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue-dim),transparent);opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.building-card:hover{border-color:rgba(79,158,255,0.35);transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,0.5);}
+.building-card:hover::after{opacity:1;}
+.wip-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber-dim);border:1px solid rgba(227,179,65,0.25);padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;color:var(--amber);margin-bottom:16px;}
+.wip-dot{width:6px;height:6px;background:var(--amber);border-radius:50%;animation:blink 1.5s ease infinite;}
+.bc-title{font-size:20px;font-weight:700;margin-bottom:6px;}
+.bc-sub{font-size:13px;color:var(--text3);margin-bottom:16px;}
+.bc-desc{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:20px;}
+.bc-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.bc-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:4px 10px;border-radius:6px;font-size:12px;color:var(--text2);}
+
+/* EXPERIENCE */
+.exp-timeline{display:flex;flex-direction:column;gap:2px;}
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 32px;transition:all 0.3s;position:relative;}
+.exp-card+.exp-card{margin-top:16px;}
+.exp-card:hover{border-color:var(--border2);transform:translateX(4px);box-shadow:0 8px 32px rgba(0,0,0,0.35);}
+.exp-card::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(var(--blue),var(--purple));opacity:0;transition:opacity 0.3s;}
+.exp-card:hover::before{opacity:1;}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px;flex-wrap:wrap;}
+.exp-role{font-size:18px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.exp-org{font-size:14px;color:var(--blue);font-weight:500;}
+.exp-meta{display:flex;gap:12px;color:var(--text3);font-size:13px;margin-bottom:14px;flex-wrap:wrap;}
+.exp-meta span{display:flex;align-items:center;gap:5px;}
+.exp-desc{color:var(--text2);font-size:14px;line-height:1.7;margin-bottom:16px;}
+.exp-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.etag{background:var(--blue-dim);border:1px solid rgba(79,158,255,0.2);color:var(--blue);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:500;}
+.etag.g{background:var(--green-dim);border-color:rgba(63,185,80,0.2);color:var(--green);}
+.etag.p{background:var(--purple-dim);border-color:rgba(167,139,250,0.2);color:var(--purple);}
+.dual-badge{display:inline-flex;align-items:center;gap:6px;background:var(--purple-dim);border:1px solid rgba(167,139,250,0.2);padding:3px 10px;border-radius:12px;font-size:11px;color:var(--purple);margin-bottom:12px;font-weight:500;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:24px;}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;transition:all 0.3s;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.proj-top-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--purple));opacity:0;transition:opacity 0.3s;}
+.proj-card:hover .proj-top-line{opacity:1;}
+.proj-card:hover{border-color:rgba(79,158,255,0.3);transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,0.5);}
+.proj-title{font-size:20px;font-weight:700;margin-bottom:6px;}
+.proj-tagline{font-size:13px;color:var(--text3);margin-bottom:18px;}
+.proj-section{margin-bottom:14px;}
+.proj-section-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--amber);margin-bottom:5px;}
+.proj-section p{font-size:14px;color:var(--text2);line-height:1.65;}
+.proj-tech{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0;}
+.ptag{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:4px 10px;border-radius:6px;font-size:12px;color:var(--text2);}
+.proj-links{display:flex;gap:16px;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);}
+.plink{color:var(--blue);font-size:13px;font-weight:500;text-decoration:none;transition:color 0.2s;}
+.plink:hover{color:#79c0ff;}
+.plink.green{color:var(--green);}
+.plink.green:hover{color:#6ee7a0;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.skill-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.skill-box h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.skill-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{background:rgba(255,255,255,0.04);border:1px solid var(--border);padding:5px 11px;border-radius:7px;font-size:12px;color:var(--text2);transition:all 0.2s;cursor:default;}
+.chip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-dim);}
+
+/* LEADERSHIP */
+.lead-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+.lead-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all 0.3s;}
+.lead-card:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,0.4);}
+.lead-icon{font-size:24px;margin-bottom:12px;}
+.lead-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.lead-org{font-size:13px;color:var(--blue);margin-bottom:8px;}
+.lead-period{font-size:12px;color:var(--text3);margin-bottom:10px;}
+.lead-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* CONTACT */
+.contact-wrap{max-width:640px;margin:0 auto;}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:56px;text-align:center;}
+.contact-card h3{font-size:30px;font-weight:800;letter-spacing:-0.5px;margin-bottom:12px;}
+.contact-card p{color:var(--text2);margin-bottom:36px;font-size:16px;}
+.contact-items{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.ci{display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px;color:var(--text2);}
+.ci a{color:var(--blue);text-decoration:none;font-weight:500;}
+.ci a:hover{text-decoration:underline;}
+.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:36px 0;margin-top:80px;}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-left{font-size:13px;color:var(--text3);}
+.footer-right{display:flex;gap:20px;}
+.footer-right a{color:var(--text3);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-right a:hover{color:var(--blue);}
+
+/* DIVIDER */
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0;}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:48px;}
+  .hero-right{display:none;}
+  h1{font-size:40px;}
+  nav{top:12px;padding:8px 16px;gap:16px;}
+  .nav-links{gap:14px;}
+  .container{padding:0 20px;}
+  section{padding:70px 0;}
+  .proj-grid{grid-template-columns:1fr;}
+  .contact-card{padding:32px 20px;}
+}
+@media(max-width:600px){
+  .nav-links a:not(.nav-cta){display:none;}
+  h1{font-size:32px;}
+  h2{font-size:28px;}
+}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <nav>
-      <a href="#" class="logo">
-        Aksh Talati
-        <span class="logo-sub">Data Systems & AI Engineer</span>
-      </a>
-      <div class="nav-links">
-        <a href="#education">Education</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-        <a href="Aksh_Talati_Resume.pdf" class="btn-secondary" download>Resume</a>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Aksh Talati</a>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#contact">Contact</a>
+    <a href="Aksh_Talati_Resume.pdf" class="nav-cta" download>Resume ↓</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="grid-bg"></div>
+    <div class="hero-blob1"></div>
+    <div class="hero-blob2"></div>
+  </div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left fade-in">
+        <div class="status">
+          <span class="dot"></span>
+          Open to full-time roles across USA · Starting April 2026
+        </div>
+        <h1><span class="gradient-text">Data & AI Systems</span><br>Engineer</h1>
+        <p class="hero-sub">I build end-to-end data platforms — from chaotic raw pipelines to production-grade RAG systems, multi-agent AI, and data warehouses. Built with trust, validation, and observability from day one.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-fill">View Projects →</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <div class="social-row">
+          <a href="https://github.com/akshtalati" target="_blank" class="social-link">
+            <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/akshtalati" target="_blank" class="social-link">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a href="mailto:talati.ak@northeastern.edu" class="social-link">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Email
+          </a>
+        </div>
       </div>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          Open to opportunities across USA
+      <div class="hero-right fade-in">
+        <div class="stat-card">
+          <div class="stat-num blue">9+</div>
+          <div class="stat-label">Production Projects</div>
         </div>
-        
-        <h1>Building intelligent data systems from chaos to clarity</h1>
-        
-        <p class="hero-description">
-          I design and build end-to-end data platforms that transform unstructured mess into production-grade intelligence. Pipelines, warehouses, RAG systems, and AI agents — with validation, observability, and trust built in from day one.
-        </p>
-
-        <div class="hero-cta">
-          <a href="#projects" class="btn-primary">View Projects</a>
-          <a href="#contact" class="btn-secondary">Get in Touch</a>
+        <div class="stat-card">
+          <div class="stat-num green">80+</div>
+          <div class="stat-label">Students Mentored</div>
         </div>
-
-        <div class="hero-links">
-          <a href="https://github.com/akshtalati" target="_blank">GitHub</a>
-          <a href="https://www.linkedin.com/in/akshtalati" target="_blank">LinkedIn</a>
-          <a href="mailto:talati.ak@northeastern.edu">Email</a>
+        <div class="stat-card">
+          <div class="stat-num amber">35%</div>
+          <div class="stat-label">Efficiency Gains Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num purple">4</div>
+          <div class="stat-label">Industry Roles</div>
+        </div>
+        <div class="stat-card wide">
+          <span style="font-size:13px;color:var(--text3);font-weight:500;">Core Stack</span>
+          <div class="stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">SQL</span>
+            <span class="stack-tag">Airflow</span>
+            <span class="stack-tag">Snowflake</span>
+            <span class="stack-tag">LangGraph</span>
+            <span class="stack-tag">GCP</span>
+            <span class="stack-tag">Azure</span>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- GitHub Activity -->
-      <div style="margin-top: 60px; text-align: center;">
-        <h3 style="margin-bottom: 24px; font-size: 20px;">GitHub Activity</h3>
-        <div style="display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;">
+<div class="section-divider"></div>
+
+<!-- CURRENTLY BUILDING -->
+<section id="building" style="padding-top:80px;">
+  <div class="container">
+    <span class="section-label">Currently Building</span>
+    <h2>In Progress</h2>
+    <p class="section-desc">Active projects I'm shipping right now.</p>
+    <div class="building-grid">
+      <div class="building-card fade-in">
+        <div class="wip-badge"><span class="wip-dot"></span> In Progress</div>
+        <div class="bc-title">MedAssist.AI</div>
+        <div class="bc-sub">Medical information aggregation & intelligence platform</div>
+        <div class="bc-desc">Unifying six medical data sources — including PubMed and WHO — into a single intelligent platform. Building automated ingestion pipelines, semantic search, and a RAG layer so clinicians and researchers can query across sources without hunting through siloed databases.</div>
+        <div class="bc-tags">
+          <span class="bc-tag">Python</span>
+          <span class="bc-tag">PubMed API</span>
+          <span class="bc-tag">WHO Data</span>
+          <span class="bc-tag">RAG</span>
+          <span class="bc-tag">Vector DB</span>
+          <span class="bc-tag">FastAPI</span>
+        </div>
+      </div>
+      <div class="building-card fade-in">
+        <div class="wip-badge"><span class="wip-dot"></span> In Progress</div>
+        <div class="bc-title">Project Polaris</div>
+        <div class="bc-sub">Coming soon — details dropping when it ships</div>
+        <div class="bc-desc">A new data systems project currently in active development. Details intentionally kept under wraps until it's ready to share. Watch this space.</div>
+        <div class="bc-tags">
+          <span class="bc-tag">TBD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" style="margin-top:80px;"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <span class="section-label">Education</span>
+    <h2>Academic Background</h2>
+    <p class="section-desc">Building at the intersection of data engineering and AI.</p>
+    <div style="display:grid;gap:16px;">
+      <div class="exp-card fade-in">
+        <div class="exp-top">
           <div>
-            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">9</div>
-            <div style="color: var(--text-muted); font-size: 14px;">Public Repositories</div>
+            <div class="exp-role">Master of Science — Information Systems</div>
+            <div class="exp-org">Northeastern University, D'Amore-McKim School of Business</div>
           </div>
+          <div style="font-size:13px;color:var(--text3);white-space:nowrap;text-align:right;">Boston, MA<br>Expected May 2026</div>
+        </div>
+        <p class="exp-desc">Focus on data engineering, AI systems, and cloud-native architectures. Core courses: Advanced Data Engineering (DAMG 7245), AI Systems & Applications (INFO 6245), Database Management, and Supply Chain & Business Analytics.</p>
+        <div class="exp-tags">
+          <span class="etag">Data Engineering</span>
+          <span class="etag">AI Systems</span>
+          <span class="etag">Cloud Architecture</span>
+          <span class="etag">Database Management</span>
+        </div>
+      </div>
+      <div class="exp-card fade-in">
+        <div class="exp-top">
           <div>
-            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">60+</div>
-            <div style="color: var(--text-muted); font-size: 14px;">Commits</div>
+            <div class="exp-role">Bachelor of Technology — Information Technology</div>
+            <div class="exp-org">Dharmsinh Desai University</div>
           </div>
+          <div style="font-size:13px;color:var(--text3);white-space:nowrap;text-align:right;">Gujarat, India<br>Graduated 2024</div>
+        </div>
+        <p class="exp-desc">Strong foundation in computer science fundamentals, data structures, algorithms, and software engineering. Early expertise built in Python, SQL, and full-stack development through academic projects and internships.</p>
+        <div class="exp-tags">
+          <span class="etag">Computer Science</span>
+          <span class="etag">Software Engineering</span>
+          <span class="etag">Data Structures</span>
+          <span class="etag">Algorithms</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <span class="section-label">Experience</span>
+    <h2>Where I've Worked</h2>
+    <p class="section-desc">From research pipelines to teaching analytics — building things that actually ship.</p>
+    <div class="exp-timeline">
+
+      <!-- NEU Combined -->
+      <div class="exp-card fade-in">
+        <div class="dual-badge">✦ Research + Teaching · Dual Role</div>
+        <div class="exp-top">
           <div>
-            <div style="font-size: 32px; font-weight: 700; color: var(--accent);">3</div>
-            <div style="color: var(--text-muted); font-size: 14px;">Languages</div>
+            <div class="exp-role">Graduate Teaching Assistant & Research Assistant</div>
+            <div class="exp-org">Northeastern University · D'Amore-McKim School of Business</div>
           </div>
+          <div style="font-size:13px;color:var(--text3);text-align:right;">Boston, MA<br>Sep 2025 – Present</div>
         </div>
-        <p style="margin-top: 24px; color: var(--text-secondary);">
-          Primary: Python, TypeScript, SQL | Cloud: GCP, Azure | Focus: Data Engineering & AI Systems
-        </p>
-      </div>
-    </div>
-  </section>
+        <div class="exp-meta">
+          <span>📚 Sep–Dec 2025 · Research Assistant (RA + GTA work)</span>
+          <span>🎓 Jan 2026–Present · Graduate Teaching Assistant (RA + GTA work)</span>
+        </div>
+        <p class="exp-desc">Working under the same professor across both semesters, contributing to research and course instruction in parallel. Title changed semester to semester; the work didn't.</p>
 
-  <!-- Quick Stats -->
-  <section style="padding: 60px 0; background: rgba(255, 255, 255, 0.02);">
-    <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; text-align: center;">
-        <div>
-          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">9</div>
-          <div style="color: var(--text-secondary); font-size: 16px;">Production Projects</div>
-        </div>
-        <div>
-          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">80+</div>
-          <div style="color: var(--text-secondary); font-size: 16px;">Students Taught</div>
-        </div>
-        <div>
-          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">4</div>
-          <div style="color: var(--text-secondary); font-size: 16px;">Industry Roles</div>
-        </div>
-        <div>
-          <div style="font-size: 48px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">35%</div>
-          <div style="color: var(--text-secondary); font-size: 16px;">Efficiency Gains</div>
+        <p class="exp-desc">On the teaching side, designed two courses from scratch — Database Management (SQL/Oracle) and Data Integration — writing the curriculum, labs, and assignments, then teaching both directly to 80+ graduate students. Topics include schema design, normalization, query optimization, ETL concepts, and applied analytics scenarios.</p>
+
+        <p class="exp-desc">On the research side, building data engineering pipelines for healthcare datasets — automated ETL, validation layers, and reproducibility standards aligned with academic publication requirements. Working with Airflow, GCP, Python, and MLOps tooling.</p>
+
+        <div class="exp-tags">
+          <span class="etag g">Curriculum Design</span>
+          <span class="etag g">Course Instruction</span>
+          <span class="etag g">SQL / Oracle</span>
+          <span class="etag g">Database Management</span>
+          <span class="etag g">Data Integration</span>
+          <span class="etag g">80+ Students</span>
+          <span class="etag">Airflow</span>
+          <span class="etag">GCP</span>
+          <span class="etag">Python</span>
+          <span class="etag p">MLOps</span>
+          <span class="etag p">Healthcare Data</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Education -->
-  <section id="education" style="padding: 100px 0;">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Education</span>
-        <h2>Academic Background</h2>
-        <p class="section-description">
-          Building systems at the intersection of data engineering and AI.
-        </p>
+      <!-- DAIICT -->
+      <div class="exp-card fade-in">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Research Intern</div>
+            <div class="exp-org">Dhirubhai Ambani Institute of Information and Communication Technology (DAIICT)</div>
+          </div>
+          <div style="font-size:13px;color:var(--text3);text-align:right;">Gandhinagar, India<br>Jan – May 2024 · 5 mos</div>
+        </div>
+        <p class="exp-desc">Developed a cross-lingual information retrieval system for translating English queries into Indic languages (Hindi, Gujarati, Bengali) — enhancing multilingual search capabilities for regional content discovery. Built NLP pipelines for query translation, semantic matching, and cross-language relevance ranking.</p>
+        <div class="exp-tags">
+          <span class="etag">NLP</span>
+          <span class="etag">Python</span>
+          <span class="etag">Information Retrieval</span>
+          <span class="etag">Multilingual Systems</span>
+          <span class="etag p">Research</span>
+        </div>
       </div>
 
-      <div style="display: grid; gap: 24px;">
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Master of Science in Information Systems</div>
-              <div class="experience-company">Northeastern University</div>
-              <div class="experience-meta">
-                <span>Expected May 2026</span>
-                <span>Boston, MA</span>
-              </div>
-            </div>
+      <!-- Nifty -->
+      <div class="exp-card fade-in">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Technical Intern</div>
+            <div class="exp-org">Nifty Solutions</div>
           </div>
-          <p class="experience-description">
-            Focus on data engineering, AI systems, and cloud-native architectures. Coursework includes Advanced Data Engineering (DAMG 7245), AI Systems & Applications (INFO 6245), Database Management, and Supply Chain & Business Analytics.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">Data Engineering</span>
-            <span class="highlight-tag">AI Systems</span>
-            <span class="highlight-tag">Cloud Architecture</span>
-            <span class="highlight-tag">Database Management</span>
-          </div>
+          <div style="font-size:13px;color:var(--text3);text-align:right;">Vadodara, India<br>May – Jul 2023 · 3 mos</div>
         </div>
-
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Bachelor of Technology in Information Technology</div>
-              <div class="experience-company">Dharmsinh Desai University</div>
-              <div class="experience-meta">
-                <span>Graduated 2024</span>
-                <span>Gujarat, India</span>
-              </div>
-            </div>
-          </div>
-          <p class="experience-description">
-            Strong foundation in computer science fundamentals, data structures, algorithms, and software engineering. Built early expertise in Python, SQL, and full-stack development through academic projects and internships.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">Computer Science</span>
-            <span class="highlight-tag">Software Engineering</span>
-            <span class="highlight-tag">Data Structures</span>
-            <span class="highlight-tag">Algorithms</span>
-          </div>
+        <p class="exp-desc">Designed and built interactive dashboards in Power BI and Tableau, improving decision-making efficiency by 35%. Developed an internal analytics tool for real-time process monitoring — reducing manual reporting time and enabling data-driven operational decisions across teams.</p>
+        <div class="exp-tags">
+          <span class="etag">Power BI</span>
+          <span class="etag">Tableau</span>
+          <span class="etag">Dashboard Design</span>
+          <span class="etag">Real-time Monitoring</span>
+          <span class="etag g">35% Efficiency Gain</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Experience -->
-  <section id="experience">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Experience</span>
-        <h2>Where I've Worked</h2>
-        <p class="section-description">
-          From research pipelines to teaching analytics, building systems that ship.
-        </p>
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <span class="section-label">Featured Work</span>
+    <h2>Projects That Ship</h2>
+    <p class="section-desc">End-to-end systems built for trust, reliability, and real use — not just demos.</p>
+    <div class="proj-grid">
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">TechScopeAI</div>
+        <div class="proj-tagline">Multi-agent intelligence platform for startup founders</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>Startup founders need specialized guidance across pitches, competitive analysis, marketing, patents, and team-building — all scattered.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Production-grade multi-agent platform: RAG via Weaviate Cloud, MCP tools (web/image/patent search), LLM failover (GPT-4/Gemini), specialized agents per domain, pitch deck generation with Gamma.ai, React + FastAPI, deployed on GCP Cloud Run.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Python</span><span class="ptag">FastAPI</span><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Weaviate</span><span class="ptag">LangGraph</span><span class="ptag">Cloud Run</span><span class="ptag">Docker</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/BigDataGroup1/TechScopeAI" target="_blank" class="plink">GitHub →</a>
+          <a href="https://techscopeai-web-541402991388.us-central1.run.app/" target="_blank" class="plink">Live Demo →</a>
+          <a href="https://youtu.be/QxWz4NmnLkU" target="_blank" class="plink green">Watch Demo →</a>
+        </div>
       </div>
 
-      <div class="experience-grid">
-        <!-- Research Assistant -->
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Research Assistant</div>
-              <div class="experience-company">Northeastern University · D'Amore-McKim School of Business</div>
-              <div class="experience-meta">
-                <span>Sep 2025 – Present · 4 mos</span>
-                <span>Boston, MA</span>
-              </div>
-            </div>
-          </div>
-          <p class="experience-description">
-            Contributing to healthcare-focused research by building data engineering pipelines for collecting, processing, and analyzing complex research datasets. Designing automated ETL workflows with reproducibility standards and data validation layers for academic publication requirements.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">Airflow</span>
-            <span class="highlight-tag">GCP</span>
-            <span class="highlight-tag">Python</span>
-            <span class="highlight-tag">Data Pipelines</span>
-            <span class="highlight-tag">Healthcare Data</span>
-          </div>
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">ORBIT AI-50 Intelligence</div>
+        <div class="proj-tagline">Agentic LLM system for private equity due diligence</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>Manual research on Forbes AI-50 companies takes days with no unified intelligence layer.</p>
         </div>
-
-        <!-- Teaching Assistant -->
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Teaching Assistant — MISM 2301: Supply Chain & Business Analytics</div>
-              <div class="experience-company">Northeastern University · D'Amore-McKim School of Business</div>
-              <div class="experience-meta">
-                <span>Sep 2025 – Present · 4 mos</span>
-                <span>Part-time · Boston, MA</span>
-              </div>
-            </div>
-          </div>
-          <p class="experience-description">
-            Supporting 80+ graduate students with SQL/Oracle labs, dashboard-building assignments, and analytical thinking. Designing practical labs, debugging complex queries, grading assignments, and translating abstract database concepts into real-world patterns. Mentoring students on schema design, normalization, and query optimization.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">SQL/Oracle</span>
-            <span class="highlight-tag">Database Design</span>
-            <span class="highlight-tag">Business Analytics</span>
-            <span class="highlight-tag">Teaching</span>
-            <span class="highlight-tag">Mentorship</span>
-          </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Dual-pipeline system: structured extraction + RAG. Automated scraping, Airflow orchestration, vector indexing via Qdrant, and agentic reasoning with LangGraph ReAct patterns. Research time reduced 80%.</p>
         </div>
-
-        <!-- Research Intern -->
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Research Intern</div>
-              <div class="experience-company">Dhirubhai Ambani Institute of Information and Communication Technology</div>
-              <div class="experience-meta">
-                <span>Jan 2024 – May 2024 · 5 mos</span>
-                <span>Gandhinagar, Gujarat, India</span>
-              </div>
-            </div>
-          </div>
-          <p class="experience-description">
-            Developed a cross-lingual information retrieval system focused on translating English queries into Indic languages (Hindi, Gujarati, Bengali), enhancing multilingual search capabilities for regional content discovery. Built NLP pipelines for query translation, semantic matching, and relevance ranking across language boundaries.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">NLP</span>
-            <span class="highlight-tag">Python</span>
-            <span class="highlight-tag">Information Retrieval</span>
-            <span class="highlight-tag">Multilingual Systems</span>
-            <span class="highlight-tag">Research</span>
-          </div>
+        <div class="proj-tech">
+          <span class="ptag">Python</span><span class="ptag">Airflow</span><span class="ptag">LangGraph</span><span class="ptag">Qdrant</span><span class="ptag">FastAPI</span><span class="ptag">GCP</span>
         </div>
+        <div class="proj-links">
+          <a href="https://github.com/BigDataGroup1/orbit-ai50-intelligence" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
 
-        <!-- Technical Intern -->
-        <div class="experience-card">
-          <div class="experience-header">
-            <div>
-              <div class="experience-title">Technical Intern</div>
-              <div class="experience-company">Nifty Solutions</div>
-              <div class="experience-meta">
-                <span>May 2023 – Jul 2023 · 3 mos</span>
-                <span>Vadodara, Gujarat, India</span>
-              </div>
-            </div>
-          </div>
-          <p class="experience-description">
-            Designed and developed interactive dashboards in Power BI and Tableau, improving business decision-making efficiency by 35%. Built an internal analytics tool for real-time process monitoring, reducing manual reporting time and enabling data-driven operational decisions across teams.
-          </p>
-          <div class="experience-highlights">
-            <span class="highlight-tag">Power BI</span>
-            <span class="highlight-tag">Tableau</span>
-            <span class="highlight-tag">Business Analytics</span>
-            <span class="highlight-tag">Dashboard Design</span>
-            <span class="highlight-tag">Real-time Monitoring</span>
-          </div>
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">Aurelia Financial RAG</div>
+        <div class="proj-tagline">Production RAG microservice for financial documentation</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>4,000-page financial toolbox. Manual lookup is slow and unreliable at scale.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Cloud-native RAG service with code-aware chunking, ChromaDB embeddings, structured outputs via Instructor/Pydantic, and full citation tracking. 95%+ accuracy. Deployed on Cloud Run.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Python</span><span class="ptag">FastAPI</span><span class="ptag">ChromaDB</span><span class="ptag">Instructor</span><span class="ptag">Cloud Run</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/BigDataGroup1/aurelia-financial-rag" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">IMDb BI Analytics</div>
+        <div class="proj-tagline">14GB media warehouse + self-serve BI layer</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>Massive IMDb dataset with no analytics-ready structure or model.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Star schema in Snowflake with ADF pipelines. Deduplication, aggregation validation, Power BI dashboards for genre/rating/crew insights. Query performance improved 10x.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Snowflake</span><span class="ptag">Azure Data Factory</span><span class="ptag">Power BI</span><span class="ptag">SQL</span><span class="ptag">Alteryx</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/akshtalati/IMDB_PROJECT" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">Food Inspections Analytics</div>
+        <div class="proj-tagline">Multi-city food safety intelligence platform</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>Chicago and Dallas inspection data in completely different schemas with no unified view.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Normalized Dallas schema to align with Chicago, Bronze→Silver Databricks pipeline, unified model in Snowflake, Tableau dashboards for compliance and risk KPIs. First unified multi-city food safety view.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Databricks</span><span class="ptag">Snowflake</span><span class="ptag">Tableau</span><span class="ptag">SQL</span><span class="ptag">ADF</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/akshtalati/Food_Inspections_Chicago_Dallas" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">NYPD Arrest Analytics</div>
+        <div class="proj-tagline">Refreshable analytics over 5M+ arrest records</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>Static reports insufficient for ongoing, evidence-based policy decisions at scale.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Snowflake dimensional model with incremental MERGE-based refresh. Power BI dashboards showing trends by demographics, offense type, precinct, and time — shifting from one-time reports to a live analytics platform.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Snowflake</span><span class="ptag">Power BI</span><span class="ptag">SQL</span><span class="ptag">Alteryx</span><span class="ptag">ADF</span>
+        </div>
+        <div class="proj-links">
+          <span style="font-size:13px;color:var(--text3);">Private repo</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">Report Intelligence (SEC)</div>
+        <div class="proj-tagline">Document processing backbone for financial RAG</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>SEC filings (PDF/XBRL) are noisy, inconsistent, and hard to extract reliably.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Modular extraction pipeline using Docling and pdfplumber. Schema validation, intelligent chunking strategies, and DVC versioning for full auditability. Standardized messy filings into reliable downstream assets.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Python</span><span class="ptag">Docling</span><span class="ptag">pdfplumber</span><span class="ptag">DVC</span><span class="ptag">GCP</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/BigDataGroup1/report-intelligence" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
+
+      <div class="proj-card fade-in">
+        <div class="proj-top-line"></div>
+        <div class="proj-title">Dow-30 IR Document Index</div>
+        <div class="proj-tagline">Automated investor relations document scraper</div>
+        <div class="proj-section">
+          <div class="proj-section-label">Problem</div>
+          <p>30 different IR sites. Manual collection is slow and error-prone across a moving target.</p>
+        </div>
+        <div class="proj-section">
+          <div class="proj-section-label">Solution</div>
+          <p>Selenium scraper with fallback heuristics, metadata standardization across all Dow-30 companies, and Airflow DAG for scheduled refresh. Fully automated and reusable.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="ptag">Python</span><span class="ptag">Selenium</span><span class="ptag">Airflow</span><span class="ptag">GCS</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/BigDataGroup1/dow30-financial-reports" target="_blank" class="plink">GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <span class="section-label">Capabilities</span>
+    <h2>Technical Skills</h2>
+    <p class="section-desc">Full-stack data engineering — pipelines to products.</p>
+    <div class="skills-grid">
+      <div class="skill-box fade-in">
+        <h3>🔧 Data Engineering</h3>
+        <div class="skill-chips">
+          <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Pandas</span><span class="chip">Apache Airflow</span><span class="chip">Azure Data Factory</span><span class="chip">Databricks</span><span class="chip">Spark</span><span class="chip">Docker</span><span class="chip">DVC</span><span class="chip">Selenium</span>
+        </div>
+      </div>
+      <div class="skill-box fade-in">
+        <h3>🗄️ Databases & Warehousing</h3>
+        <div class="skill-chips">
+          <span class="chip">Snowflake</span><span class="chip">PostgreSQL</span><span class="chip">pgvector</span><span class="chip">MySQL</span><span class="chip">Oracle</span><span class="chip">Star Schema</span><span class="chip">Dimensional Modeling</span><span class="chip">Data Vault</span>
+        </div>
+      </div>
+      <div class="skill-box fade-in">
+        <h3>🤖 AI, RAG & Agents</h3>
+        <div class="skill-chips">
+          <span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">Instructor</span><span class="chip">Weaviate</span><span class="chip">Qdrant</span><span class="chip">ChromaDB</span><span class="chip">OpenAI API</span><span class="chip">Gemini</span><span class="chip">Pydantic</span><span class="chip">Multi-Agent Systems</span>
+        </div>
+      </div>
+      <div class="skill-box fade-in">
+        <h3>📊 Analytics & BI</h3>
+        <div class="skill-chips">
+          <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">DAX</span><span class="chip">Alteryx</span><span class="chip">Statistical Modeling</span><span class="chip">Jupyter</span><span class="chip">Excel</span>
+        </div>
+      </div>
+      <div class="skill-box fade-in">
+        <h3>💻 Application Dev</h3>
+        <div class="skill-chips">
+          <span class="chip">FastAPI</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Streamlit</span><span class="chip">REST APIs</span><span class="chip">Vite</span>
+        </div>
+      </div>
+      <div class="skill-box fade-in">
+        <h3>☁️ Cloud & Infrastructure</h3>
+        <div class="skill-chips">
+          <span class="chip">GCP</span><span class="chip">Azure</span><span class="chip">Cloud Run</span><span class="chip">Cloud Composer</span><span class="chip">GCS</span><span class="chip">IAM</span><span class="chip">Docker</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Featured Work</span>
-        <h2>Projects That Ship</h2>
-        <p class="section-description">
-          End-to-end systems designed for trust, reliability, and real-world use.
-        </p>
+<div class="section-divider"></div>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="container">
+    <span class="section-label">Leadership & Volunteering</span>
+    <h2>Beyond the Code</h2>
+    <p class="section-desc">Organizing events, building communities, and giving back.</p>
+    <div class="lead-grid">
+
+      <div class="lead-card fade-in">
+        <div class="lead-icon">🎬</div>
+        <div class="lead-title">Director of Execution & Finance · Head of Photography & Video Editing</div>
+        <div class="lead-org">Samvaad — Student Cultural Organization · DDU</div>
+        <div class="lead-period">Jul 2022 – Sep 2023 · 1 yr 3 mos</div>
+        <div class="lead-desc">Led execution and finance for large-scale cultural events — overseeing budgeting, logistics, and on-ground coordination. Simultaneously headed the photography and video editing vertical, managing a creative team producing event coverage and promotional content. Grew into these dual leadership roles after starting as Associate Event Manager and Associate Video Editor (Jul 2021 – Jul 2022).</div>
       </div>
 
-      <div class="projects-grid">
-        <!-- TechScopeAI -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">TechScopeAI</h3>
-            <p class="project-tagline">Multi-agent intelligence system for technical startup founders</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Technical startup founders need specialized guidance across pitch creation, competitive analysis, marketing, patents, policies, and team building.</p>
-            
-            <h4>Solution</h4>
-            <p>Built production-grade multi-agent platform combining RAG (Weaviate Cloud), MCP tools (web/image/patent search), and LLM failover (GPT-4/Gemini). Specialized agents for pitch decks (with Gamma.ai integration), marketing, IP, policies, and team analysis. React + TypeScript frontend, FastAPI backend, deployed on GCP Cloud Run.</p>
-            
-            <h4>Impact</h4>
-            <p>Founders get AI-generated pitch decks with professional visuals, data-driven marketing strategies, patent searches, compliance documents, and team planning guidance—all from a single platform.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">React</span>
-            <span class="tech-tag">TypeScript</span>
-            <span class="tech-tag">Weaviate</span>
-            <span class="tech-tag">LangGraph</span>
-            <span class="tech-tag">Cloud Run</span>
-            <span class="tech-tag">Docker</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/BigDataGroup1/TechScopeAI" target="_blank">View on GitHub →</a>
-            <a href="https://techscopeai-web-541402991388.us-central1.run.app/" target="_blank">Live Demo →</a>
-            <a href="https://youtu.be/QxWz4NmnLkU" target="_blank" style="color: var(--success);">Watch Full Demo →</a>
-          </div>
-        </div>
-
-        <!-- ORBIT -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">ORBIT AI-50 Intelligence</h3>
-            <p class="project-tagline">Agentic LLM system for private equity due diligence</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Manual research for Forbes AI-50 companies takes days. No unified intelligence layer.</p>
-            
-            <h4>Solution</h4>
-            <p>Built dual-pipeline system: structured extraction + RAG. Automated scraping, Airflow orchestration, vector indexing (Qdrant), and agentic reasoning with ReAct patterns.</p>
-            
-            <h4>Impact</h4>
-            <p>Reduced research time by 80%. Consistent, cited intelligence with autonomous updates.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Airflow</span>
-            <span class="tech-tag">LangGraph</span>
-            <span class="tech-tag">Qdrant</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">GCP</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/BigDataGroup1/orbit-ai50-intelligence" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- Aurelia -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Aurelia Financial RAG</h3>
-            <p class="project-tagline">Production RAG microservice for financial documentation</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>4,000-page financial toolbox. Manual search = slow, unreliable.</p>
-            
-            <h4>Solution</h4>
-            <p>Cloud-native RAG system with code-aware chunking, ChromaDB embeddings, structured responses using Instructor/Pydantic, and citation tracking.</p>
-            
-            <h4>Impact</h4>
-            <p>Instant lookup with 95%+ accuracy. Trusted, cited answers deployed on Cloud Run.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">FastAPI</span>
-            <span class="tech-tag">ChromaDB</span>
-            <span class="tech-tag">Instructor</span>
-            <span class="tech-tag">Cloud Run</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/BigDataGroup1/aurelia-financial-rag" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- IMDb -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">IMDb BI Analytics</h3>
-            <p class="project-tagline">14GB media warehouse + self-serve BI layer</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Massive IMDb dataset. No structure, no analytics-ready model.</p>
-            
-            <h4>Solution</h4>
-            <p>Built star schema in Snowflake with Azure Data Factory pipelines. Deduplication, aggregation correctness, and Power BI dashboards for genre/rating/crew insights.</p>
-            
-            <h4>Impact</h4>
-            <p>Scalable self-serve analytics for stakeholders. Query performance optimized 10x.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Snowflake</span>
-            <span class="tech-tag">Azure Data Factory</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">SQL</span>
-            <span class="tech-tag">Alteryx</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/akshtalati/IMDB_PROJECT" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- Food Inspections -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Food Inspections Analytics</h3>
-            <p class="project-tagline">Multi-city food safety intelligence platform</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Chicago + Dallas inspection data in completely different schemas.</p>
-            
-            <h4>Solution</h4>
-            <p>Normalized Dallas schema to align with Chicago. Bronze→Silver Databricks pipeline, unified model in Snowflake, Tableau dashboards for compliance/risk KPIs.</p>
-            
-            <h4>Impact</h4>
-            <p>First unified view of multi-city food safety. Hotspot detection + compliance tracking.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Databricks</span>
-            <span class="tech-tag">Snowflake</span>
-            <span class="tech-tag">Tableau</span>
-            <span class="tech-tag">SQL</span>
-            <span class="tech-tag">ADF</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/akshtalati/Food_Inspections_Chicago_Dallas" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- NYPD -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">NYPD Arrest Analytics</h3>
-            <p class="project-tagline">Refreshable analytics over 5M+ arrest records</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Static analysis insufficient for ongoing policy decisions across demographics and jurisdictions.</p>
-            
-            <h4>Solution</h4>
-            <p>Built Snowflake dimensional model with incremental MERGE-based fact table refresh. Power BI dashboards showing arrest trends by demographics, offense types, precinct, and time dimensions.</p>
-            
-            <h4>Impact</h4>
-            <p>Shifted from one-time reports to continuously refreshable analytics platform supporting evidence-based policy decisions.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Snowflake</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">SQL</span>
-            <span class="tech-tag">Alteryx</span>
-            <span class="tech-tag">Azure Data Factory</span>
-          </div>
-        </div>
-
-        <!-- Export Growth Analysis -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Export Growth Analysis</h3>
-            <p class="project-tagline">Econometric modeling for trade and tariff insights</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>Understanding complex relationships between tariffs, macroeconomic factors, and export performance.</p>
-            
-            <h4>Solution</h4>
-            <p>Built reproducible analysis pipeline in Python using Pandas for data cleaning/joining, GLM/Poisson regression for modeling trade relationships, and Jupyter notebooks for transparent, peer-reviewable analysis.</p>
-            
-            <h4>Impact</h4>
-            <p>Delivered interpretable, model-driven insights into export drivers with statistical significance testing and reproducible methodology.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Jupyter</span>
-            <span class="tech-tag">GLM/Poisson</span>
-            <span class="tech-tag">Statistical Modeling</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/akshtalati/Export_Growth_Analysis" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- Report Intelligence -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Report Intelligence (SEC Filings)</h3>
-            <p class="project-tagline">Document processing backbone for financial RAG</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>SEC filings (PDF/XBRL) = noisy, inconsistent, hard to extract.</p>
-            
-            <h4>Solution</h4>
-            <p>Modular extraction pipeline using Docling + pdfplumber. Schema validation, chunking strategies, DVC versioning for auditability.</p>
-            
-            <h4>Impact</h4>
-            <p>Standardized messy filings into reliable downstream assets. Reproducible + auditable.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Docling</span>
-            <span class="tech-tag">pdfplumber</span>
-            <span class="tech-tag">DVC</span>
-            <span class="tech-tag">GCP</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/BigDataGroup1/report-intelligence" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
-
-        <!-- Dow-30 -->
-        <div class="project-card">
-          <div class="project-header">
-            <h3 class="project-title">Dow-30 IR Document Index</h3>
-            <p class="project-tagline">Centralized investor relations scraper</p>
-          </div>
-          <div class="project-content">
-            <h4>Problem</h4>
-            <p>30 different IR sites. Manual collection = slow, error-prone.</p>
-            
-            <h4>Solution</h4>
-            <p>Selenium scraper with fallback heuristics, metadata standardization, Airflow DAG for scheduled refresh.</p>
-            
-            <h4>Impact</h4>
-            <p>Automated document collection across all Dow-30 companies. Reusable pattern.</p>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Selenium</span>
-            <span class="tech-tag">Airflow</span>
-            <span class="tech-tag">GCS</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/BigDataGroup1/dow30-financial-reports" target="_blank">View on GitHub →</a>
-          </div>
-        </div>
+      <div class="lead-card fade-in">
+        <div class="lead-icon">🎓</div>
+        <div class="lead-title">Class President</div>
+        <div class="lead-org">Dharmsinh Desai University</div>
+        <div class="lead-period">2020 – 2024 · 4 consecutive years</div>
+        <div class="lead-desc">Elected class president for four straight years throughout undergrad. Acted as the primary liaison between students and faculty, coordinated academic and extracurricular activities, and advocated for student needs — building consistent trust across a large peer group.</div>
       </div>
+
+      <div class="lead-card fade-in">
+        <div class="lead-icon">🪔</div>
+        <div class="lead-title">Volunteer</div>
+        <div class="lead-org">NU Sanskriti — Northeastern University</div>
+        <div class="lead-period">Northeastern University</div>
+        <div class="lead-desc">Actively volunteered with NU Sanskriti, Northeastern's South Asian cultural organization — contributing to event planning, cultural programming, and community building for the South Asian student community in Boston.</div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Skills -->
-  <section id="skills">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Capabilities</span>
-        <h2>What Makes Me Different</h2>
-        <p class="section-description">
-          I don't just write code — I build systems people trust.
-        </p>
-      </div>
+<div class="section-divider"></div>
 
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3>🔧 Data Engineering</h3>
-          <div class="skill-list">
-            <span class="skill-item">Python</span>
-            <span class="skill-item">SQL</span>
-            <span class="skill-item">Pandas</span>
-            <span class="skill-item">Apache Airflow</span>
-            <span class="skill-item">Azure Data Factory</span>
-            <span class="skill-item">Databricks</span>
-            <span class="skill-item">Spark</span>
-            <span class="skill-item">Docker</span>
-            <span class="skill-item">DVC</span>
-            <span class="skill-item">Selenium</span>
-            <span class="skill-item">Git/GitHub</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>🗄️ Databases & Warehousing</h3>
-          <div class="skill-list">
-            <span class="skill-item">Snowflake</span>
-            <span class="skill-item">PostgreSQL</span>
-            <span class="skill-item">pgvector</span>
-            <span class="skill-item">MySQL</span>
-            <span class="skill-item">Star Schema</span>
-            <span class="skill-item">Dimensional Modeling</span>
-            <span class="skill-item">Data Vault</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>🤖 AI, RAG & Vector Databases</h3>
-          <div class="skill-list">
-            <span class="skill-item">LangChain</span>
-            <span class="skill-item">LangGraph</span>
-            <span class="skill-item">Instructor</span>
-            <span class="skill-item">Weaviate</span>
-            <span class="skill-item">Qdrant</span>
-            <span class="skill-item">ChromaDB</span>
-            <span class="skill-item">OpenAI API</span>
-            <span class="skill-item">Google Gemini</span>
-            <span class="skill-item">Pydantic</span>
-            <span class="skill-item">NLP</span>
-            <span class="skill-item">Multi-Agent Systems</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>📊 Analytics & BI</h3>
-          <div class="skill-list">
-            <span class="skill-item">Power BI</span>
-            <span class="skill-item">Tableau</span>
-            <span class="skill-item">Excel</span>
-            <span class="skill-item">DAX</span>
-            <span class="skill-item">Alteryx</span>
-            <span class="skill-item">Statistical Modeling</span>
-            <span class="skill-item">Jupyter</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>💻 Application Development</h3>
-          <div class="skill-list">
-            <span class="skill-item">FastAPI</span>
-            <span class="skill-item">React</span>
-            <span class="skill-item">TypeScript</span>
-            <span class="skill-item">Streamlit</span>
-            <span class="skill-item">Vite</span>
-            <span class="skill-item">REST APIs</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>☁️ Cloud & Infrastructure</h3>
-          <div class="skill-list">
-            <span class="skill-item">GCP</span>
-            <span class="skill-item">Azure</span>
-            <span class="skill-item">Cloud Run</span>
-            <span class="skill-item">Cloud Composer</span>
-            <span class="skill-item">GCS</span>
-            <span class="skill-item">IAM</span>
-            <span class="skill-item">Docker</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>📄 Document Processing</h3>
-          <div class="skill-list">
-            <span class="skill-item">PDF Extraction</span>
-            <span class="skill-item">pdfplumber</span>
-            <span class="skill-item">Docling</span>
-            <span class="skill-item">OCR</span>
-            <span class="skill-item">XBRL</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>🎯 Core Strengths</h3>
-          <div class="skill-list">
-            <span class="skill-item">End-to-end system design</span>
-            <span class="skill-item">Production-grade thinking</span>
-            <span class="skill-item">Multi-agent orchestration</span>
-            <span class="skill-item">Data validation & quality</span>
-            <span class="skill-item">Pipeline orchestration</span>
-            <span class="skill-item">Technical mentorship</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-content">
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-card fade-in">
         <h3>Let's Build Something</h3>
-        <p>Open to full-time opportunities, consulting, or just talking data systems.</p>
-        
-        <div class="contact-methods">
-          <div class="contact-item">
-            📧 <a href="mailto:talati.ak@northeastern.edu">talati.ak@northeastern.edu</a>
-          </div>
-          <div class="contact-item">
-            📍 Open to opportunities across USA
-          </div>
+        <p>Open to full-time roles in data engineering, MLOps, and AI engineering — starting April 2026. Also happy to talk pipelines, systems, or anything data.</p>
+        <div class="contact-items">
+          <div class="ci">📧 <a href="mailto:talati.ak@northeastern.edu">talati.ak@northeastern.edu</a></div>
+          <div class="ci">📍 Open to opportunities across the USA</div>
+          <div class="ci">💼 <a href="https://www.linkedin.com/in/akshtalati" target="_blank">linkedin.com/in/akshtalati</a></div>
+          <div class="ci">🐙 <a href="https://github.com/akshtalati" target="_blank">github.com/akshtalati</a></div>
         </div>
-
-        <div class="hero-cta">
-          <a href="mailto:talati.ak@northeastern.edu" class="btn-primary">Send Email</a>
-          <a href="Aksh_Talati_Resume.pdf" class="btn-secondary" download>Download Resume</a>
+        <div class="contact-btns">
+          <a href="mailto:talati.ak@northeastern.edu" class="btn btn-fill">Send Email</a>
+          <a href="https://www.linkedin.com/in/akshtalati" target="_blank" class="btn btn-outline">Connect on LinkedIn</a>
+          <a href="Aksh_Talati_Resume.pdf" class="btn btn-outline" download>Resume ↓</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <p class="footer-text">© 2025 Aksh Talati · Built for clarity and credibility</p>
-      <div class="footer-links">
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">© 2026 Aksh Talati · Built with intention.</div>
+      <div class="footer-right">
         <a href="https://github.com/akshtalati" target="_blank">GitHub</a>
         <a href="https://www.linkedin.com/in/akshtalati" target="_blank">LinkedIn</a>
         <a href="mailto:talati.ak@northeastern.edu">Email</a>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+<script>
+// Scroll progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  bar.style.width = pct + '%';
+});
 
-    // Update year in footer
-    document.querySelector('.footer-text').textContent = 
-      `© ${new Date().getFullYear()} Aksh Talati · Built for clarity and credibility`;
-  </script>
+// Nav scroll class
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
 
+// Fade-in on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+// Active nav link highlight
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+  });
+});
+</script>
 </body>
 </html>
